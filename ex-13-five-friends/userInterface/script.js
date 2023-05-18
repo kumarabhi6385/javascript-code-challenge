@@ -1,3 +1,5 @@
+/*
+
 var generateBtn = document.querySelector("#btnsuggestion");
 generateBtn.addEventListener("click", fetchData);
 
@@ -24,33 +26,32 @@ function fetchData() {
     });
 }
 
-/*
-async function getUserSuggession(baseurl) {
-  const url = baseurl + "/suggestionlist";
-  const response = await fetch(url, {
-    method: "GET",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "text/plain",
-    },
-  });
-  console.log(response);
-  const data = await response.json();
-  console.log(data);
-  return data;
+*/
+
+async function fetchData() {
+  let response = await fetch("http://localhost:3000/suggestionlist");
+
+  if (response.status !== 200) {
+    console.log(
+      "Looks like there was a problem. Status Code: " + response.status
+    );
+    return;
+  } else {
+    let data = await response.json();
+    return data;
+  }
 }
 
-document.querySelector("#btnsuggesstion").addEventListener(
+document.querySelector("#btnsuggestion").addEventListener(
   "click",
-  async (e) => {
-    getUserSuggession("http://localhost:3000").then((data) => {
-      let userList = ``;
-      for (const item in data) {
-        userList += `<li>${item}</li>`;
-      }
-      document.querySelector("#userlist").innerHTML = userList;
+  async () => {
+    let data = await fetchData();
+    let userList = ``;
+    data.forEach((item) => {
+      userList += `<li>${item}</li>`;
+      console.log(item);
     });
+    document.querySelector("#userlist").innerHTML = userList;
   },
   false
 );
-*/
