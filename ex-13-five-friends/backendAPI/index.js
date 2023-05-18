@@ -22,9 +22,11 @@ function getRandomItem(arr) {
 
 function getSuggestionList() {
   let data = [];
-  for (let i = 0; i < 5; i++) {
+  while (data.length < 5) {
     let item = getRandomItem(users);
-    data.push(item);
+    if (data.includes(item) === false) {
+      data.push(item);
+    }
   }
   return data;
 }
@@ -33,9 +35,16 @@ const server = http.createServer((req, res) => {
   if (req.method !== "GET") {
     res.end(`{"error": "${http.STATUS_CODES[405]}"}`);
   } else {
+    const headers = {
+      "Access-Control-Allow-Origin": "*" /* @dev First, read about security */,
+      "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+      "Access-Control-Max-Age": 2592000, // 30 days
+      /** add other headers as per requirement */
+    };
     console.log(req.url);
     if (req.url == "/suggestionlist") {
       let data = getSuggestionList();
+      res.writeHead(200, headers);
       res.write(JSON.stringify(data));
       res.end();
     } else {
