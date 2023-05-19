@@ -1,0 +1,3 @@
+<!---
+In a previous challenge we created a Book class that accepts a title, author, ISBN, and number of copies, and provides methods for selling and restocking. And this challenge we'll use inheritance to create a variation on our Book class. Your goal is to create a TechnicalBook class that inherits from the Book class in the previous challenge. This class will also take a title, author, ISBN, and number of copies, but will take a fifth argument, an edition. The TechnicalBook class will also provide a getEdition function which returns the following string. The current version of this book is, followed by the book's edition. You should use a template literal for this phrase. So pause the video, develop your solution,
+-->
